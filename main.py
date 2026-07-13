@@ -38,30 +38,51 @@ while True:
             except ValueError:
                 print("Quantidade inválida! Digite apenas números inteiros.")
 
+
+        # Criando ID automático
+        if len(produtos) == 0:
+            novo_id = 1
+        else:
+            novo_id = max(produto.get("id", 0) for produto in produtos) + 1
+
+
         produto = {
+            "id": novo_id,
             "nome": nome,
             "preco": preco,
             "quantidade": quantidade
         }
 
+
         produtos.append(produto)
+
         salvar_produtos(produtos)
+
 
         print("\nProduto cadastrado com sucesso!")
         print(produto)
+
 
     elif opcao == "2":
 
         print("\n--- Lista de Produtos ---")
 
+
         if len(produtos) == 0:
+
             print("Nenhum produto cadastrado.")
+
         else:
+
             for produto in produtos:
+
                 print("----------------")
+                print("ID:", produto.get("id", "Sem ID"))
                 print("Nome:", produto["nome"])
                 print("Preço:", produto["preco"])
                 print("Quantidade:", produto["quantidade"])
+
+
 
     elif opcao == "3":
 
@@ -71,11 +92,14 @@ while True:
 
         encontrado = False
 
+
         for produto in produtos:
 
             if produto["nome"].lower() == nome_busca.lower():
 
                 print("\nProduto encontrado!")
+                print("----------------")
+                print("ID:", produto.get("id", "Sem ID"))
                 print("Nome:", produto["nome"])
                 print("Preço:", produto["preco"])
                 print("Quantidade:", produto["quantidade"])
@@ -83,8 +107,12 @@ while True:
                 encontrado = True
                 break
 
+
         if not encontrado:
+
             print("Produto não encontrado.")
+
+
 
     elif opcao == "4":
 
@@ -94,66 +122,74 @@ while True:
 
         encontrado = False
 
+
         for produto in produtos:
 
             if produto["nome"].lower() == nome_alterar.lower():
 
                 print("\nProduto encontrado!")
 
-                while True:
-                    try:
-                        novo_preco = float(input("Digite o novo preço: "))
-                        break
-                    except ValueError:
-                        print("Preço inválido! Digite apenas números.")
 
-                while True:
-                    try:
-                        nova_quantidade = int(input("Digite a nova quantidade: "))
-                        break
-                    except ValueError:
-                        print("Quantidade inválida! Digite apenas números inteiros.")
+                novo_preco = float(input("Digite o novo preço: "))
+                nova_quantidade = int(input("Digite a nova quantidade: "))
+
 
                 produto["preco"] = novo_preco
                 produto["quantidade"] = nova_quantidade
 
+
                 salvar_produtos(produtos)
+
 
                 print("\nProduto alterado com sucesso!")
 
                 encontrado = True
                 break
 
+
         if not encontrado:
+
             print("Produto não encontrado.")
+
+
 
     elif opcao == "5":
 
         print("\n--- Excluir Produto ---")
 
+
         nome_excluir = input("Digite o nome do produto que deseja excluir: ")
 
         encontrado = False
+
 
         for produto in produtos:
 
             if produto["nome"].lower() == nome_excluir.lower():
 
                 produtos.remove(produto)
+
                 salvar_produtos(produtos)
+
 
                 print("\nProduto excluído com sucesso!")
 
                 encontrado = True
                 break
 
+
         if not encontrado:
+
             print("Produto não encontrado.")
+
+
 
     elif opcao == "0":
 
         print("Sistema encerrado!")
         break
+
+
 
     else:
 
