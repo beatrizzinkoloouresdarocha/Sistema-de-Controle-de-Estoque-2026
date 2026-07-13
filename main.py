@@ -1,13 +1,10 @@
 from arquivo import carregar_produtos, salvar_produtos
 
-
 print("================================")
 print("Sistema de Controle de Estoque")
 print("================================")
 
-
 produtos = carregar_produtos()
-
 
 while True:
 
@@ -19,18 +16,27 @@ while True:
     print("5 - Excluir Produto")
     print("0 - Sair")
 
-
     opcao = input("Escolha uma opção: ")
-
 
     if opcao == "1":
 
         print("\n--- Cadastro de Produto ---")
 
         nome = input("Digite o nome do produto: ")
-        preco = float(input("Digite o preço do produto: "))
-        quantidade = int(input("Digite a quantidade: "))
 
+        while True:
+            try:
+                preco = float(input("Digite o preço do produto: "))
+                break
+            except ValueError:
+                print("Preço inválido! Digite apenas números.")
+
+        while True:
+            try:
+                quantidade = int(input("Digite a quantidade: "))
+                break
+            except ValueError:
+                print("Quantidade inválida! Digite apenas números inteiros.")
 
         produto = {
             "nome": nome,
@@ -44,23 +50,18 @@ while True:
         print("\nProduto cadastrado com sucesso!")
         print(produto)
 
-
-
     elif opcao == "2":
 
         print("\n--- Lista de Produtos ---")
 
         if len(produtos) == 0:
             print("Nenhum produto cadastrado.")
-
         else:
             for produto in produtos:
                 print("----------------")
                 print("Nome:", produto["nome"])
                 print("Preço:", produto["preco"])
                 print("Quantidade:", produto["quantidade"])
-
-
 
     elif opcao == "3":
 
@@ -69,7 +70,6 @@ while True:
         nome_busca = input("Digite o nome do produto: ")
 
         encontrado = False
-
 
         for produto in produtos:
 
@@ -81,12 +81,10 @@ while True:
                 print("Quantidade:", produto["quantidade"])
 
                 encontrado = True
+                break
 
-
-        if encontrado == False:
+        if not encontrado:
             print("Produto não encontrado.")
-
-
 
     elif opcao == "4":
 
@@ -96,31 +94,38 @@ while True:
 
         encontrado = False
 
-
         for produto in produtos:
 
             if produto["nome"].lower() == nome_alterar.lower():
 
                 print("\nProduto encontrado!")
 
-                novo_preco = float(input("Digite o novo preço: "))
-                nova_quantidade = int(input("Digite a nova quantidade: "))
+                while True:
+                    try:
+                        novo_preco = float(input("Digite o novo preço: "))
+                        break
+                    except ValueError:
+                        print("Preço inválido! Digite apenas números.")
 
+                while True:
+                    try:
+                        nova_quantidade = int(input("Digite a nova quantidade: "))
+                        break
+                    except ValueError:
+                        print("Quantidade inválida! Digite apenas números inteiros.")
 
                 produto["preco"] = novo_preco
                 produto["quantidade"] = nova_quantidade
-                salvar_produtos(produtos)
 
+                salvar_produtos(produtos)
 
                 print("\nProduto alterado com sucesso!")
 
                 encontrado = True
+                break
 
-
-        if encontrado == False:
+        if not encontrado:
             print("Produto não encontrado.")
-
-
 
     elif opcao == "5":
 
@@ -130,32 +135,25 @@ while True:
 
         encontrado = False
 
-
         for produto in produtos:
 
             if produto["nome"].lower() == nome_excluir.lower():
 
                 produtos.remove(produto)
-                salvar_produtos()
+                salvar_produtos(produtos)
+
                 print("\nProduto excluído com sucesso!")
 
                 encontrado = True
-
                 break
 
-
-        if encontrado == False:
-
+        if not encontrado:
             print("Produto não encontrado.")
-
-
 
     elif opcao == "0":
 
         print("Sistema encerrado!")
         break
-
-
 
     else:
 
