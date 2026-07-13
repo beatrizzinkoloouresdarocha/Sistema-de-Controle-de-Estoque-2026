@@ -1,1 +1,3 @@
-print("Sistema de Controle de Estoque")
+print("=" * 40)
+print(" SISTEMA DE CONTROLE DE ESTOQUE ")
+print("=" * 40)
