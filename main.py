@@ -1,9 +1,12 @@
+from arquivo import carregar_produtos, salvar_produtos
+
+
 print("================================")
 print("Sistema de Controle de Estoque")
 print("================================")
 
 
-produtos = []
+produtos = carregar_produtos()
 
 
 while True:
@@ -35,9 +38,8 @@ while True:
             "quantidade": quantidade
         }
 
-
         produtos.append(produto)
-
+        salvar_produtos(produtos)
 
         print("\nProduto cadastrado com sucesso!")
         print(produto)
@@ -87,20 +89,74 @@ while True:
 
 
     elif opcao == "4":
-        print("Você escolheu alterar produto")
+
+        print("\n--- Alterar Produto ---")
+
+        nome_alterar = input("Digite o nome do produto que deseja alterar: ")
+
+        encontrado = False
+
+
+        for produto in produtos:
+
+            if produto["nome"].lower() == nome_alterar.lower():
+
+                print("\nProduto encontrado!")
+
+                novo_preco = float(input("Digite o novo preço: "))
+                nova_quantidade = int(input("Digite a nova quantidade: "))
+
+
+                produto["preco"] = novo_preco
+                produto["quantidade"] = nova_quantidade
+                salvar_produtos(produtos)
+
+
+                print("\nProduto alterado com sucesso!")
+
+                encontrado = True
+
+
+        if encontrado == False:
+            print("Produto não encontrado.")
 
 
 
     elif opcao == "5":
-        print("Você escolheu excluir produto")
+
+        print("\n--- Excluir Produto ---")
+
+        nome_excluir = input("Digite o nome do produto que deseja excluir: ")
+
+        encontrado = False
+
+
+        for produto in produtos:
+
+            if produto["nome"].lower() == nome_excluir.lower():
+
+                produtos.remove(produto)
+                salvar_produtos()
+                print("\nProduto excluído com sucesso!")
+
+                encontrado = True
+
+                break
+
+
+        if encontrado == False:
+
+            print("Produto não encontrado.")
 
 
 
     elif opcao == "0":
+
         print("Sistema encerrado!")
         break
 
 
 
     else:
+
         print("Opção inválida!")
