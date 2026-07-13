@@ -61,20 +61,45 @@ while True:
 
 
     elif opcao == "3":
-        print("Você escolheu buscar produto")
+
+        print("\n--- Buscar Produto ---")
+
+        nome_busca = input("Digite o nome do produto: ")
+
+        encontrado = False
+
+
+        for produto in produtos:
+
+            if produto["nome"].lower() == nome_busca.lower():
+
+                print("\nProduto encontrado!")
+                print("Nome:", produto["nome"])
+                print("Preço:", produto["preco"])
+                print("Quantidade:", produto["quantidade"])
+
+                encontrado = True
+
+
+        if encontrado == False:
+            print("Produto não encontrado.")
+
 
 
     elif opcao == "4":
         print("Você escolheu alterar produto")
 
 
+
     elif opcao == "5":
         print("Você escolheu excluir produto")
+
 
 
     elif opcao == "0":
         print("Sistema encerrado!")
         break
+
 
 
     else:
