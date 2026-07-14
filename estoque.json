@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "id": 1,
+        "nome": "Mouse",
+        "preco": 50.0,
+        "quantidade": 10
+    }
+]
